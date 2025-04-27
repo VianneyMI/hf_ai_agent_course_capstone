@@ -21,3 +21,16 @@ class TestAgent:
         agent = create_agent()
         result = agent.run("What is the capital of France?")
         assert result == "Paris"
+
+
+def main():
+    """Main function."""
+
+    test_create_agent()
+    print("Testing the Agent")
+    test_agent = TestAgent()
+    test_agent.test_simple_task()
+
+
+if __name__ == "__main__":
+    main()

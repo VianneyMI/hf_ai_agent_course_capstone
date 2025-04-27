@@ -47,7 +47,7 @@ def create_agent():
         model=llm,
         name="Azrock",
         description="A helpful assistant that can code, read, and write files.",
-        planning_interval=PLANNING_INTERVAL,
+        # planning_interval=PLANNING_INTERVAL,
         tools=[final_answer_tool],
     )
 
