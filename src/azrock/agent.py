@@ -5,7 +5,7 @@ Module defining the Azrock Agent.
 
 import os
 
-from smolagents import CodeAgent, FinalAnswerTool
+from smolagents import CodeAgent, FinalAnswerTool, LiteLLMModel, HfApiModel
 from langchain_openai import ChatOpenAI
 from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
@@ -30,6 +30,7 @@ def is_dev_environment():
 def get_llm():
     """Get the LLM."""
 
+    setup()
     if is_dev_environment():
         return ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0)
     else:
@@ -39,7 +40,10 @@ def get_llm():
 def create_agent():
     """Creates the Azrock Agent."""
 
-    llm = get_llm()
+    # llm = get_llm()
+
+    llm = LiteLLMModel(model_id="anthropic/claude-3-5-sonnet-latest")
+    # llm = HfApiModel()
 
     final_answer_tool = FinalAnswerTool()
 
