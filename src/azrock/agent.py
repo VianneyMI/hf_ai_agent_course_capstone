@@ -12,7 +12,28 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+AGENT_NAME = "Azrock"
 PLANNING_INTERVAL = 5
+AZROCK_TEMPERATURE = 0
+
+DESCRIPTION = """
+Azrock is an AI agent trained to perform well on the GAIA benchmark.
+GAIA is a benchmark designed to evaluate AI assistants on real-world tasks that require a combination of core capabilities—such as reasoning, multimodal understanding, web browsing, and proficient tool use.
+
+GAIA requires the following capabilities:
+
+* Generating structured response format
+* Multimodal reasoning
+* Planning and sequential reasoning with memory
+* Executing sequencing in the right order
+* Web browsing
+* Coding
+* Diverse filetype reading
+
+Azrock manages a set of other specialized AI agents to help him in his task of defeating the GAIA benchmark.
+
+
+""".strip()
 
 
 def setup():
@@ -32,26 +53,29 @@ def get_llm():
 
     setup()
     if is_dev_environment():
-        return ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0)
+        model_id = "google/gemini-1.5-flash"
     else:
-        return ChatOpenAI(model="gpt-4o-mini", temperature=0)
+        # model_id = "anthropic/claude-3-5-sonnet-latest"
+        model_id = "openai/o4-mini"
+
+    return LiteLLMModel(
+        model_id=model_id,
+        temperature=AZROCK_TEMPERATURE,
+    )
 
 
 def create_agent():
     """Creates the Azrock Agent."""
 
-    # llm = get_llm()
-
-    llm = LiteLLMModel(model_id="anthropic/claude-3-5-sonnet-latest")
-    # llm = HfApiModel()
+    llm = get_llm()
 
     final_answer_tool = FinalAnswerTool()
 
     agent = CodeAgent(
         model=llm,
-        name="Azrock",
-        description="A helpful assistant that can code, read, and write files.",
-        # planning_interval=PLANNING_INTERVAL,
+        name=AGENT_NAME,
+        description=DESCRIPTION,
+        planning_interval=PLANNING_INTERVAL,
         tools=[final_answer_tool],
     )
 

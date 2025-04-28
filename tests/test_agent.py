@@ -1,8 +1,9 @@
 """Test the agent."""
 
-from azrock.agent import create_agent
-
+import pytest
 from smolagents import CodeAgent
+
+from azrock.agent import create_agent
 
 
 def test_create_agent():
@@ -15,12 +16,13 @@ def test_create_agent():
 class TestAgent:
     """Test the agent."""
 
+    @pytest.mark.non_deterministic
     def test_simple_task(self):
         """Test the creation of the agent."""
 
         agent = create_agent()
         result = agent.run("What is the capital of France?")
-        assert result == "Paris"
+        assert result == "Paris", f"Expected 'Paris', got {result}"
 
 
 def main():
