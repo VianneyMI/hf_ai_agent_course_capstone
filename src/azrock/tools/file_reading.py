@@ -3,7 +3,8 @@
 from io import BytesIO
 import tempfile
 from PIL import Image
-from pydub import AudioSegment
+import soundfile as sf
+import numpy as np
 import pandas as pd
 from smolagents import tool
 
@@ -37,7 +38,7 @@ def read_image(image_bytes: bytes) -> Image.Image:
     return Image.open(BytesIO(image_bytes))
 
 
-def read_audio(audio_bytes: bytes) -> AudioSegment:
+def read_audio(audio_bytes: bytes) -> tuple[np.ndarray, int]:
     """Reads an audio from bytes.
 
     Args:
@@ -45,14 +46,16 @@ def read_audio(audio_bytes: bytes) -> AudioSegment:
             The bytes of the audio to read.
 
     Returns:
-        AudioSegment: The audio data as a pydub AudioSegment object.
+        tuple[np.ndarray, int]: A tuple containing:
+            - The audio data as a numpy array
+            - The sample rate of the audio
     """
     with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as temp_file:
         temp_file.write(audio_bytes)
         temp_file.flush()
-        audio = AudioSegment.from_mp3(temp_file.name)
+        data, samplerate = sf.read(temp_file.name)
 
-    return audio
+    return data, samplerate
 
 
 def read_excel(excel_bytes: bytes) -> pd.DataFrame:
