@@ -1,6 +1,7 @@
 """`azrock.tools.file_reading` contains functions for reading files."""
 
 from io import BytesIO
+import tempfile
 from PIL import Image
 from pydub import AudioSegment
 import pandas as pd
@@ -46,8 +47,12 @@ def read_audio(audio_bytes: bytes) -> AudioSegment:
     Returns:
         AudioSegment: The audio data as a pydub AudioSegment object.
     """
+    with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as temp_file:
+        temp_file.write(audio_bytes)
+        temp_file.flush()
+        audio = AudioSegment.from_mp3(temp_file.name)
 
-    return AudioSegment.from_mp3(audio_bytes)
+    return audio
 
 
 def read_excel(excel_bytes: bytes) -> pd.DataFrame:
