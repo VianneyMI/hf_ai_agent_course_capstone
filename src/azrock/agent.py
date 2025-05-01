@@ -50,21 +50,26 @@ def is_dev_environment():
     return os.getenv("ENVIRONMENT") == "development"
 
 
+def is_debug_environment():
+    """Check if the environment is a debug environment."""
+
+    return os.getenv("ENVIRONMENT") == "debug"
+
+
 def get_llm():
     """Get the LLM."""
 
     setup()
     if is_dev_environment():
-        model_id = "gemini-1.5-flash"
-        provider = "google"
+        model_id = "gemini/gemini-2.5-flash-preview-04-17"
+    elif is_debug_environment():
+        model_id = "anthropic/claude-3-5-sonnet-latest"
     else:
         # model_id = "anthropic/claude-3-5-sonnet-latest"
-        model_id = "o4-mini"
-        provider = "openai"
+        model_id = "openai/o4-mini"
 
     return LiteLLMModel(
         model_id=model_id,
-        provider=provider,
         temperature=AZROCK_TEMPERATURE,
     )
 
@@ -87,6 +92,7 @@ def create_agent():
             read_image_tool,
             read_audio_tool,
         ],
+        add_base_tools=True,
     )
 
     return agent
