@@ -6,7 +6,7 @@ import pandas as pd
 
 
 from azrock.tools.submission_api import get_file_by_task_id
-from azrock.tools.file_reading import read_image, read_audio, read_excel
+from azrock.tools.file_reading import read_image, read_audio, read_spreadsheet
 from tests.tests_tools.conftest_ import (
     TASK_ID_WITH_IMAGE,
     TASK_ID_WITH_AUDIO,
@@ -32,12 +32,30 @@ def test_read_audio():
     assert samplerate > 0
 
 
-def test_read_excel():
-    """Test the `read_excel` function."""
+class TestReadSpreadsheet:
+    """Test the `read_spreadsheet` function."""
 
-    excel_bytes, _ = get_file_by_task_id(TASK_ID_WITH_SPREADSHEET)
-    excel = read_excel(excel_bytes)
-    assert isinstance(excel, pd.DataFrame)
+    def test_single_sheet_excel(self):
+        """Test the `read_excel` function."""
+
+        excel_bytes, _ = get_file_by_task_id(TASK_ID_WITH_SPREADSHEET)
+        excel = read_spreadsheet(excel_bytes)
+        assert isinstance(excel, pd.DataFrame)
+
+    def test_csv(self):
+        """Test the `read_csv` function."""
+
+        assert False
+
+    def test_multiple_sheets_excel(self):
+        """Test the `read_excel` function with multiple sheets."""
+
+        assert False
+
+    def test_google_sheets(self):
+        """Test the `read_google_sheets` function."""
+
+        assert False
 
 
 def main():
@@ -45,7 +63,11 @@ def main():
 
     # test_read_image()
     # test_read_audio()
-    test_read_excel()
+    test_read_spreadsheet = TestReadSpreadsheet()
+    test_read_spreadsheet.test_single_sheet_excel()
+    test_read_spreadsheet.test_csv()
+    test_read_spreadsheet.test_multiple_sheets_excel()
+    test_read_spreadsheet.test_google_sheets()
     print("Done!")
 
 
