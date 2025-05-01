@@ -5,12 +5,14 @@ Module defining the Azrock Agent.
 
 import os
 
-from smolagents import CodeAgent, FinalAnswerTool, LiteLLMModel, HfApiModel
-from langchain_openai import ChatOpenAI
-from langchain_google_genai import ChatGoogleGenerativeAI
+from smolagents import CodeAgent, FinalAnswerTool, LiteLLMModel
+from azrock.tools.file_reading import (
+    read_spreadsheet_tool,
+    read_image_tool,
+    read_audio_tool,
+)
 from dotenv import load_dotenv
 
-load_dotenv()
 
 AGENT_NAME = "Azrock"
 PLANNING_INTERVAL = 5
@@ -53,13 +55,16 @@ def get_llm():
 
     setup()
     if is_dev_environment():
-        model_id = "google/gemini-1.5-flash"
+        model_id = "gemini-1.5-flash"
+        provider = "google"
     else:
         # model_id = "anthropic/claude-3-5-sonnet-latest"
-        model_id = "openai/o4-mini"
+        model_id = "o4-mini"
+        provider = "openai"
 
     return LiteLLMModel(
         model_id=model_id,
+        provider=provider,
         temperature=AZROCK_TEMPERATURE,
     )
 
@@ -76,7 +81,12 @@ def create_agent():
         name=AGENT_NAME,
         description=DESCRIPTION,
         planning_interval=PLANNING_INTERVAL,
-        tools=[final_answer_tool],
+        tools=[
+            final_answer_tool,
+            read_spreadsheet_tool,
+            read_image_tool,
+            read_audio_tool,
+        ],
     )
 
     return agent

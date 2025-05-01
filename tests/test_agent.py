@@ -3,7 +3,7 @@
 import pytest
 from smolagents import CodeAgent
 
-from azrock.agent import create_agent
+from azrock.agent import create_agent, setup
 
 
 def test_create_agent():
