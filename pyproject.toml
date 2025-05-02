@@ -20,6 +20,7 @@ dependencies = [
     "smolagents[litellm]==1.9.2",
     "soundfile>=0.13.1",
     "transformers>=4.51.3",
+    "wikipedia>=1.4.0",
 ]
 
 [dependency-groups]
