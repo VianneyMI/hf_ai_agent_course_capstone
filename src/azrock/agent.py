@@ -11,6 +11,12 @@ from azrock.tools.file_reading import (
     read_image_tool,
     read_audio_tool,
 )
+from azrock.tools.youtube import (
+    youtube_search_tool,
+    get_audio_tool,
+    get_summary_tool,
+    get_text_tool,
+)
 from dotenv import load_dotenv
 
 
@@ -91,6 +97,10 @@ def create_agent():
             read_spreadsheet_tool,
             read_image_tool,
             read_audio_tool,
+            youtube_search_tool,
+            get_audio_tool,
+            get_summary_tool,
+            get_text_tool,
         ],
         add_base_tools=True,
     )
