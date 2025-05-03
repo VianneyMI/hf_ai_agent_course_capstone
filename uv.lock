@@ -380,12 +380,6 @@ wheels = [
 ]
 
 [[package]]
-name = "ffmpeg"
-version = "1.4"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/f0/cc/3b7408b8ecf7c1d20ad480c3eaed7619857bf1054b690226e906fdf14258/ffmpeg-1.4.tar.gz", hash = "sha256:6931692c890ff21d39938433c2189747815dca0c60ddc7f9bb97f199dba0b5b9", size = 5055, upload_time = "2018-10-08T07:50:05.748Z" }
-
-[[package]]
 name = "ffmpy"
 version = "0.5.0"
 source = { registry = "https://pypi.org/simple" }
@@ -736,7 +730,6 @@ name = "hf-ai-agent-course-capstone"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
-    { name = "ffmpeg" },
     { name = "gradio" },
     { name = "langchain" },
     { name = "langchain-community" },
@@ -747,6 +740,7 @@ dependencies = [
     { name = "openai-whisper" },
     { name = "openpyxl" },
     { name = "pydub" },
+    { name = "python-ffmpeg" },
     { name = "pytubefix" },
     { name = "smolagents", extra = ["litellm"] },
     { name = "soundfile" },
@@ -761,7 +755,6 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "ffmpeg", specifier = ">=1.4" },
     { name = "gradio", specifier = ">=5.28.0" },
     { name = "langchain", specifier = ">=0.3.24" },
     { name = "langchain-community", specifier = ">=0.3.23" },
@@ -772,6 +765,7 @@ requires-dist = [
     { name = "openai-whisper", specifier = ">=20240930" },
     { name = "openpyxl", specifier = ">=3.1.5" },
     { name = "pydub", specifier = ">=0.25.1" },
+    { name = "python-ffmpeg", specifier = ">=2.0.12" },
     { name = "pytubefix", specifier = ">=8.13.1" },
     { name = "smolagents", extras = ["litellm"], specifier = "==1.9.2" },
     { name = "soundfile", specifier = ">=0.13.1" },
@@ -2079,6 +2073,18 @@ wheels = [
 ]
 
 [[package]]
+name = "pyee"
+version = "13.0.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/95/03/1fd98d5841cd7964a27d729ccf2199602fe05eb7a405c1462eb7277945ed/pyee-13.0.0.tar.gz", hash = "sha256:b391e3c5a434d1f5118a25615001dbc8f669cf410ab67d04c4d4e07c55481c37", size = 31250, upload_time = "2025-03-17T18:53:15.955Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/9b/4d/b9add7c84060d4c1906abe9a7e5359f2a60f7a9a4f67268b2766673427d8/pyee-13.0.0-py3-none-any.whl", hash = "sha256:48195a3cddb3b1515ce0695ed76036b5ccc2ef3a9f963ff9f77aec0139845498", size = 15730, upload_time = "2025-03-17T18:53:14.532Z" },
+]
+
+[[package]]
 name = "pygments"
 version = "2.19.1"
 source = { registry = "https://pypi.org/simple" }
@@ -2121,6 +2127,19 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/88/2c/7bb1416c5620485aa793f2de31d3df393d3686aa8a8506d11e10e13c5baf/python_dotenv-1.1.0.tar.gz", hash = "sha256:41f90bc6f5f177fb41f53e87666db362025010eb28f60a01c9143bfa33a2b2d5", size = 39920, upload_time = "2025-03-25T10:14:56.835Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/1e/18/98a99ad95133c6a6e2005fe89faedf294a748bd5dc803008059409ac9b1e/python_dotenv-1.1.0-py3-none-any.whl", hash = "sha256:d7c01d9e2293916c18baf562d95698754b0dbbb5e74d457c45d4f6561fb9d55d", size = 20256, upload_time = "2025-03-25T10:14:55.034Z" },
+]
+
+[[package]]
+name = "python-ffmpeg"
+version = "2.0.12"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pyee" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/dd/4d/7ecffb341d646e016be76e36f5a42cb32f409c9ca21a57b68f067fad3fc7/python_ffmpeg-2.0.12.tar.gz", hash = "sha256:19ac80af5a064a2f53c245af1a909b2d7648ea045500d96d3bcd507b88d43dc7", size = 14126292, upload_time = "2024-04-15T10:15:31.878Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/7f/6d/02e817aec661defe148cb9eb0c4eca2444846305f625c2243fb9f92a9045/python_ffmpeg-2.0.12-py3-none-any.whl", hash = "sha256:d86697da8dfb39335183e336d31baf42fb217468adf5ac97fd743898240faae3", size = 14411, upload_time = "2024-04-15T10:15:28.966Z" },
 ]
 
 [[package]]
