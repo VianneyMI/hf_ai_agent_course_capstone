@@ -5,6 +5,7 @@ Module defining the Azrock Agent.
 
 import os
 
+import litellm
 from smolagents import CodeAgent, FinalAnswerTool, LiteLLMModel
 from azrock.tools.file_reading import (
     read_spreadsheet_tool,
@@ -21,8 +22,8 @@ from dotenv import load_dotenv
 
 
 AGENT_NAME = "Azrock"
-PLANNING_INTERVAL = 5
-AZROCK_TEMPERATURE = 0
+DEFAULT_PLANNING_INTERVAL = 5
+DEFAULT_AZROCK_TEMPERATURE = 0
 
 DESCRIPTION = """
 Azrock is an AI agent trained to perform well on the GAIA benchmark.
@@ -43,6 +44,8 @@ Azrock manages a set of other specialized AI agents to help him in his task of d
 
 """.strip()
 
+litellm.drop_params = True  # 👈 KEY CHANGE
+
 
 def setup():
     """Setup the environment."""
@@ -62,7 +65,7 @@ def is_debug_environment():
     return os.getenv("ENVIRONMENT") == "debug"
 
 
-def get_llm():
+def get_llm(temperature: float = DEFAULT_AZROCK_TEMPERATURE):
     """Get the LLM."""
 
     setup()
@@ -76,14 +79,14 @@ def get_llm():
 
     return LiteLLMModel(
         model_id=model_id,
-        temperature=AZROCK_TEMPERATURE,
+        temperature=temperature,
     )
 
 
-def create_agent():
+def create_agent(temperature: float = DEFAULT_AZROCK_TEMPERATURE):
     """Creates the Azrock Agent."""
 
-    llm = get_llm()
+    llm = get_llm(temperature=temperature)
 
     final_answer_tool = FinalAnswerTool()
 
@@ -91,7 +94,7 @@ def create_agent():
         model=llm,
         name=AGENT_NAME,
         description=DESCRIPTION,
-        planning_interval=PLANNING_INTERVAL,
+        planning_interval=DEFAULT_PLANNING_INTERVAL,
         tools=[
             final_answer_tool,
             read_spreadsheet_tool,

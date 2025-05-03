@@ -58,7 +58,7 @@ def test_save_answers():
 def test_score():
     """Test the score of the agent on the provided questions."""
     questions_data = load_questions()
-    agent = create_agent()
+    agent = create_agent(temperature=1)
     results = []
 
     for question in questions_data[:5]:  # Test first 5 questions
