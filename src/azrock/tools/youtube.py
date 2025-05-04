@@ -10,6 +10,7 @@ from transformers import pipeline
 from transformers.pipelines.base import Pipeline
 from smolagents import Tool, tool
 from langchain_community.tools import YouTubeSearchTool
+from llama_index.readers.youtube_transcript.base import YoutubeTranscriptReader
 # from langchain_community.agent_toolkits.load_tools import load_tools
 
 
@@ -132,10 +133,28 @@ def get_summary(url: str) -> str:
     return summary_text
 
 
+def get_transcript(url: str) -> str:
+    """Get the transcript of a Youtube video.
+
+    Args:
+        url: The URL of the Youtube video.
+
+    Returns:
+        The transcript of the Youtube video.
+
+    """
+
+    reader = YoutubeTranscriptReader()
+    documents = reader.load_data([url])
+    transcript = documents[0].text
+    return transcript
+
+
 # Toolification
 # -----------------------------------------
 youtube_search_tool = Tool.from_langchain(YouTubeSearchTool())
 get_audio_tool = tool(get_audio)
-get_text_tool = tool(get_text)
-get_summary_tool = tool(get_summary)
-get_video_tool = tool(get_video)
+# get_text_tool = tool(get_text) # not tested
+# get_summary_tool = tool(get_summary) # not tested
+# get_video_tool = tool(get_video) # not tested
+get_transcript_tool = tool(get_transcript)

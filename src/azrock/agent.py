@@ -15,8 +15,7 @@ from azrock.tools.file_reading import (
 from azrock.tools.youtube import (
     youtube_search_tool,
     get_audio_tool,
-    get_summary_tool,
-    get_text_tool,
+    get_transcript_tool,
 )
 from dotenv import load_dotenv
 
@@ -102,8 +101,7 @@ def create_agent(temperature: float = DEFAULT_AZROCK_TEMPERATURE):
             read_audio_tool,
             youtube_search_tool,
             get_audio_tool,
-            get_summary_tool,
-            get_text_tool,
+            get_transcript_tool,
         ],
         add_base_tools=True,
     )
