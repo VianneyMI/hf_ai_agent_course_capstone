@@ -18,8 +18,8 @@ def test_e2e():
     print("-" * 20)
     print(result)
     print("-" * 20)
-    assert result
-    assert False, result
+    assert "extremely" in result.lower(), result
+    # assert False, result
 
 
 if __name__ == "__main__":

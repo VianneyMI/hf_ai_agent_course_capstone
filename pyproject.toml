@@ -1,3 +1,7 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
 name = "hf-ai-agent-course-capstone"
 version = "0.1.0"
@@ -29,4 +33,8 @@ dependencies = [
 [dependency-groups]
 dev = [
     "pytest>=8.3.5",
+    "hatch>=1.10.0",
 ]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/azrock", "tests"]

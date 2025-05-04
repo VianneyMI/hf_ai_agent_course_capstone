@@ -140,7 +140,8 @@ def get_transcript(url: str) -> str:
         url: The URL of the Youtube video.
 
     Returns:
-        The transcript of the Youtube video.
+        str:
+            The transcript of the Youtube video.
 
     """
 
@@ -154,7 +155,7 @@ def get_transcript(url: str) -> str:
 # -----------------------------------------
 youtube_search_tool = Tool.from_langchain(YouTubeSearchTool())
 get_audio_tool = tool(get_audio)
-# get_text_tool = tool(get_text) # not tested
-# get_summary_tool = tool(get_summary) # not tested
-# get_video_tool = tool(get_video) # not tested
+get_text_tool = tool(get_text)  # not tested
+get_summary_tool = tool(get_summary)  # not tested
+get_video_tool = tool(get_video)  # not tested
 get_transcript_tool = tool(get_transcript)

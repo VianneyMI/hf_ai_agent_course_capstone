@@ -3,7 +3,7 @@
 from PIL import Image
 import numpy as np
 import pandas as pd
-
+import pytest
 
 from azrock.tools.submission_api import get_file_by_task_id
 from azrock.tools.file_reading import read_image, read_audio, read_spreadsheet
@@ -42,16 +42,19 @@ class TestReadSpreadsheet:
         excel = read_spreadsheet(excel_bytes)
         assert isinstance(excel, pd.DataFrame)
 
+    @pytest.mark.xfail(reason="Test not implemented")
     def test_csv(self):
         """Test the `read_csv` function."""
 
         assert False
 
+    @pytest.mark.xfail(reason="Test not implemented")
     def test_multiple_sheets_excel(self):
         """Test the `read_excel` function with multiple sheets."""
 
         assert False
 
+    @pytest.mark.xfail(reason="Feature not implemented")
     def test_google_sheets(self):
         """Test the `read_google_sheets` function."""
 
