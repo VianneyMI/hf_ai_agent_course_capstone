@@ -73,8 +73,7 @@ def get_llm(temperature: float = DEFAULT_AZROCK_TEMPERATURE):
     elif is_debug_environment():
         model_id = "anthropic/claude-3-5-sonnet-latest"
     else:
-        # model_id = "anthropic/claude-3-5-sonnet-latest"
-        model_id = "openai/o4-mini"
+        model_id = "openai/gpt-4o-mini"
 
     return LiteLLMModel(
         model_id=model_id,

@@ -89,12 +89,12 @@ def test_score():
     successful_answers = sum(1 for r in results if r.get("success", False))
     total_questions = len(results)
 
-    # Assert that at least some answers were successful
-    assert successful_answers > 0, (
-        f"No successful answers out of {total_questions} questions"
-    )
-
     # Log the success rate
     print(
         f"Success rate: {successful_answers}/{total_questions} ({successful_answers / total_questions * 100:.1f}%)"
+    )
+
+    # Assert that at least some answers were successful
+    assert successful_answers > 0, (
+        f"No successful answers out of {total_questions} questions"
     )
