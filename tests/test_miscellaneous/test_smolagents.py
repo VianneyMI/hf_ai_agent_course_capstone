@@ -3,7 +3,7 @@
 from typing import Literal
 
 import pytest
-from smolagents import tool
+from smolagents import tool, CodeAgent, LiteLLMModel
 
 
 ReturnType = Literal["str", "bool"]
@@ -31,6 +31,31 @@ def test_tool_decorator_on_function_that_returns_union_type():
 
     with pytest.raises(TypeError):
         tool(dummy_function_to_be_tooled)
+
+
+def test_change_system_prompt():
+    """Test the change system prompt tool."""
+
+    model_id = "gemini/gemini-2.5-flash-preview-04-17"
+    temperature = 0.0
+
+    llm = LiteLLMModel(
+        model_id=model_id,
+        temperature=temperature,
+    )
+
+    with pytest.raises(TypeError):
+        agent = CodeAgent(
+            model=llm,
+            system_prompt="You are an AI assistant that always say no",
+            tools=[],
+            add_base_tools=True,
+        )
+
+        assert agent.system_prompt == "You are an AI assistant that always say no"
+
+        result = agent.run("Can you tell me a joke?")
+        assert result == "no", result
 
 
 def main():
