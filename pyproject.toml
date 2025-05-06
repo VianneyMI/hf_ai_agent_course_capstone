@@ -22,7 +22,7 @@ dependencies = [
     "pydub>=0.25.1",
     "python-ffmpeg>=2.0.12",
     "pytubefix>=8.13.1",
-    "smolagents[litellm]==1.9.2",
+    "smolagents[litellm]==1.14.0",
     "soundfile>=0.13.1",
     "speechrecognition>=3.14.2",
     "transformers>=4.51.3",
