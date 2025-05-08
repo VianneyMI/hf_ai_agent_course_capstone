@@ -64,7 +64,7 @@ def test_sample_score():
     for question in questions_data[:5]:  # Test first 5 questions
         question_text = question["question"]
         try:
-            answer = agent.run(question_text)
+            answer = agent.run(str(question))
 
             result = {
                 "task_id": question["task_id"],
@@ -114,7 +114,7 @@ def test_score_all():
 
             result = {
                 "task_id": question["task_id"],
-                "question": question_text,
+                "question": str(question),
                 "answer": answer,
                 "success": True,
             }
