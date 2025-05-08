@@ -38,9 +38,6 @@ GAIA requires the following capabilities:
 * Coding
 * Diverse filetype reading
 
-Azrock manages a set of other specialized AI agents to help him in his task of defeating the GAIA benchmark.
-
-
 """.strip()
 
 litellm.drop_params = True  # 👈 KEY CHANGE
@@ -104,5 +101,6 @@ def create_agent(temperature: float = DEFAULT_AZROCK_TEMPERATURE):
         ],
         add_base_tools=True,
     )
+    # agent.initialize_system_prompt()
 
     return agent
