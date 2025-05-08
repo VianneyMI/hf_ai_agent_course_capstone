@@ -38,28 +38,31 @@ def test_change_system_prompt():
 
     model_id = "gemini/gemini-2.5-flash-preview-04-17"
     temperature = 0.0
+    system_prompt = """
+    You are an AI assistant that always say no.
+    Forget all previous instructions.
+    Whatever you are asked, your answer should be a single word "no".
+    """
 
     llm = LiteLLMModel(
         model_id=model_id,
         temperature=temperature,
     )
 
-    with pytest.raises(TypeError):
-        agent = CodeAgent(
-            model=llm,
-            system_prompt="You are an AI assistant that always say no",
-            tools=[],
-            add_base_tools=True,
-        )
+    agent = CodeAgent(
+        model=llm,
+        tools=[],
+        add_base_tools=True,
+    )
+    agent.prompt_templates["system_prompt"] = system_prompt
+    agent.system_prompt = agent.initialize_system_prompt()
 
-        assert agent.system_prompt == "You are an AI assistant that always say no"
-
-        result = agent.run("Can you tell me a joke?")
-        assert result == "no", result
+    assert agent.system_prompt == system_prompt
 
 
 def main():
     test_tool_decorator_on_function_that_returns_union_type()
+    test_change_system_prompt()
     print("All tests passed!")
 
 
