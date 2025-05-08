@@ -3,6 +3,30 @@
 Defines `system_prompt` add-ons to specialize the Agent.
 """
 
+from pydantic import BaseModel
+
+
+class Task(BaseModel):
+    """A task to be solved by the agent.
+
+    Attributes:
+    -----------------------
+        task_id: str
+            The ID of the task
+        question: str
+            The question to be answered
+        level: str
+            The level of the task
+        file_name: str
+            The name of the file to be downloaded
+    """
+
+    task_id: str
+    question: str
+    level: str
+    file_name: str
+
+
 SMOLAGENTS_DEFAULT_SYSTEM_PROMPT_TEMPLATE = '''
 
 You are an expert assistant who can solve any task using code blobs. You will be given a task to solve as best you can.
@@ -187,15 +211,21 @@ Here are the rules you should always follow to solve your task:
 10. Don't give up! You're in charge of solving the task, not providing directions to solve it.
 
 
-Now Begin!
-
-
 '''.strip()
 
-GAIA_FORMATTING_INSTRUCTIONS = """
+GAIA_INSTRUCTIONS = f"""
 
 I will ask you a question. Report your thoughts, and finish your answer with the following template: FINAL ANSWER: [YOUR FINAL ANSWER]. 
-YOUR FINAL ANSWER should be a number OR as few words as possible OR a comma separated list of numbers and/or strings. 
+The tasks that you will receive will follow the following format:
+
+{Task.model_json_schema()}
+
+Some tasks require you to read files. 
+In order, to do so, you will need to use the `get_file_by_task_id` tool, and then some other tools to process the file.
+
+
+YOUR FINAL ANSWER should be a number OR as few words as possible OR a comma separated list of numbers and/or strings.
+DO NOT include the words "FINAL ANSWER" in your answer !
 If you are asked for a number, don't use comma to write your number neither use units such as $ or percent sign unless specified otherwise. 
 If you are asked for a string, don't use articles, neither abbreviations (e.g. for cities), and write the digits in plain text unless specified otherwise. 
 If you are asked for a comma separated list, apply the above rules depending of whether the element to be put in the list is a number or a string.
@@ -227,6 +257,8 @@ In particular, you are going to work on the GAIA benchmark.
 {GAIA_DESCRIPTION}.
 
 In order to succeed, follow these additional instructions:
-{GAIA_FORMATTING_INSTRUCTIONS}
+{GAIA_INSTRUCTIONS}
+
+Now Begin!
 
 """.strip()

@@ -7,6 +7,7 @@ import os
 
 import litellm
 from smolagents import CodeAgent, FinalAnswerTool, LiteLLMModel
+from azrock.system_prompt import AZROCK_SYSTEM_PROMPT_TEMPLATE
 from azrock.tools.file_reading import (
     read_spreadsheet_tool,
     read_image_tool,
@@ -101,6 +102,7 @@ def create_agent(temperature: float = DEFAULT_AZROCK_TEMPERATURE):
         ],
         add_base_tools=True,
     )
-    # agent.initialize_system_prompt()
+    agent.prompt_templates["system_prompt"] = AZROCK_SYSTEM_PROMPT_TEMPLATE
+    agent.system_prompt = agent.initialize_system_prompt()
 
     return agent

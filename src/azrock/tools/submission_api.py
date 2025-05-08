@@ -69,7 +69,9 @@ class SubmitResponse(BaseModel):
 # API integration
 # ------------------------------------------------------------------------------
 def get_file_by_task_id(task_id: str) -> tuple[bytes, str]:
-    """Get a file by task ID.
+    """Downloads a file from a task id.
+
+    Retrieves a file from the submission API by using the id (`task_id`) of the task requiring that file.
 
     Args:
         task_id: str
