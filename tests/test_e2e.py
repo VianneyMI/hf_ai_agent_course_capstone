@@ -27,7 +27,7 @@ class TestE2E:
         """
 
         agent = create_agent()
-        result = agent.run(TASK_1["question"])
+        result = agent.run(str(TASK_1))
         print("-" * 20)
         print(result)
         print("-" * 20)
@@ -42,7 +42,7 @@ class TestE2E:
         """
 
         agent = create_agent()
-        result = agent.run(TASK_2["question"])
+        result = agent.run(str(TASK_2))
         print("-" * 20)
         print(result)
         print("-" * 20)
