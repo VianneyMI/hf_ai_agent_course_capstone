@@ -55,7 +55,7 @@ def test_save_answers():
     assert results
 
 
-def test_score():
+def test_sample_score():
     """Test the score of the agent on the provided questions."""
     questions_data = load_questions()
     agent = create_agent(temperature=1)
@@ -97,4 +97,50 @@ def test_score():
     # Assert that at least some answers were successful
     assert successful_answers > 0, (
         f"No successful answers out of {total_questions} questions"
+    )
+
+
+def test_score_all():
+    """Test the score of the agent on all the questions."""
+
+    questions_data = load_questions()
+    agent = create_agent(temperature=1)
+    results = []
+
+    for question in questions_data:
+        question_text = question["question"]
+        try:
+            answer = agent.run(question_text)
+
+            result = {
+                "task_id": question["task_id"],
+                "question": question_text,
+                "answer": answer,
+                "success": True,
+            }
+            results.append(result)
+        except Exception as e:
+            results.append(
+                {
+                    "task_id": question["task_id"],
+                    "question": question_text,
+                    "error": str(e),
+                    "success": False,
+                }
+            )
+
+    save_answers(results)
+
+    # Count successful answers
+    successful_answers = sum(1 for r in results if r.get("success", False))
+    total_questions = len(results)
+
+    # Log the success rate
+    print(
+        f"Success rate: {successful_answers}/{total_questions} ({successful_answers / total_questions * 100:.1f}%)"
+    )
+
+    # Assert that all answers were successful
+    assert successful_answers == total_questions, (
+        f"All answers were not successful out of {total_questions} questions"
     )
