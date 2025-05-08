@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "hf-ai-agent-course-capstone"
+name = "azrock"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
