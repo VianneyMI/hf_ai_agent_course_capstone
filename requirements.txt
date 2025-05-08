@@ -1,0 +1,1 @@
+azrock @ git+https://github.com/VianneyMI/hf_ai_agent_course_capstone.git@main
