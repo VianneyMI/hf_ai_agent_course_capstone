@@ -12,7 +12,9 @@ from azrock.tools.file_reading import (
     read_spreadsheet_tool,
     read_image_tool,
     read_audio_tool,
+    read_code_tool,
 )
+from azrock.tools.submission_api import get_file_by_task_id_tool
 from azrock.tools.youtube import (
     youtube_search_tool,
     get_audio_tool,
@@ -93,9 +95,11 @@ def create_agent(temperature: float = DEFAULT_AZROCK_TEMPERATURE):
         planning_interval=DEFAULT_PLANNING_INTERVAL,
         tools=[
             final_answer_tool,
+            get_file_by_task_id_tool,
             read_spreadsheet_tool,
             read_image_tool,
             read_audio_tool,
+            read_code_tool,
             youtube_search_tool,
             get_audio_tool,
             get_transcript_tool,

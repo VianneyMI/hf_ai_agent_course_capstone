@@ -20,6 +20,17 @@ IMAGE_FORMATS = [
 
 # File reading API
 # ------------------------------------------------------------------------------
+def read_code(code_bytes: bytes) -> str:
+    """Reads a code from bytes.
+
+    Args:
+        code_bytes: bytes
+            The bytes of the code to read.
+    """
+
+    return code_bytes.decode("utf-8")
+
+
 def read_image(image_bytes: bytes) -> Image.Image:
     """Reads an image from bytes.
 
@@ -115,6 +126,7 @@ def read_spreadsheet(
 # ------------------------------------------------------------------------------
 read_image_tool = tool(read_image)
 read_audio_tool = tool(read_audio)
+read_code_tool = tool(read_code)
 # read_spreadsheet_tool = tool(read_spreadsheet)
 
 

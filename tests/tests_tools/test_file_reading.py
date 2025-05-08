@@ -6,12 +6,28 @@ import pandas as pd
 import pytest
 
 from azrock.tools.submission_api import get_file_by_task_id
-from azrock.tools.file_reading import read_image, read_audio, read_spreadsheet
+from azrock.tools.file_reading import (
+    read_image,
+    read_audio,
+    read_spreadsheet,
+    read_code,
+)
 from tests.tests_tools.conftest_ import (
     TASK_ID_WITH_IMAGE,
     TASK_ID_WITH_AUDIO,
     TASK_ID_WITH_SPREADSHEET,
+    TASK_ID_WITH_CODE,
 )
+
+
+def test_read_code():
+    """Test the `read_code` function."""
+
+    code_bytes, _ = get_file_by_task_id(TASK_ID_WITH_CODE)
+    code = read_code(code_bytes)
+    assert isinstance(code, str), code
+    assert "keep_trying" in code, code
+    assert "def" in code, code
 
 
 def test_read_image():

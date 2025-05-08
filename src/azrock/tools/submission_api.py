@@ -78,7 +78,8 @@ def get_file_by_task_id(task_id: str) -> tuple[bytes, str]:
             The ID of the task to get the file for.
 
     Returns:
-        tuple[bytes, str]: A tuple containing the file content as bytes and the filename
+        tuple[bytes, str]:
+            A tuple containing the file content as bytes and the filename
     """
 
     url = f"{BASE_URL}/files/{task_id}"
