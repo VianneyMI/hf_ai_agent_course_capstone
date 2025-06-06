@@ -144,3 +144,7 @@ def test_score_all():
     assert successful_answers == total_questions, (
         f"All answers were not successful out of {total_questions} questions"
     )
+
+
+if __name__ == "__main__":
+    test_score_all()

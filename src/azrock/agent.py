@@ -43,7 +43,7 @@ GAIA requires the following capabilities:
 
 """.strip()
 
-litellm.drop_params = True  # 👈 KEY CHANGE
+litellm.drop_params = True
 
 
 def setup():
